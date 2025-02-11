@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +18,23 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('front.layouts.app');
+// });
 
-Route::get('/dashboard', function () {
-    return view('auth.dashboard');
-});
+
+
+//admin panel routes
+
+Route::get('/login',[UserController::class,'index'])->name('login');
+Route::post('/login',[UserController::class,'login'])->name('admin.login');
+
+
+Route::middleware(['auth.middleware'])->group(function () {
+Route::prefix('admin')->group(function () {
+
+Route::get('/dashboard',[UserController::class, 'dashboard'])->name('show.dashboard');
+Route::get('/logout',[UserController::class, 'logout'])->name('admin.logout');
 
 
 // Route For Category//
@@ -54,4 +66,14 @@ Route::get('post/list/',[PostController::class, 'list'])->name('post.list');
 Route::get('post/edit/{id}',[PostController::class, 'edit'])->name('post.edit');
 Route::get('post/delete/{id}',[PostController::class, 'delete'])->name('post.delete');
 Route::post('post/update/{id}',[PostController::class, 'update'])->name('post.update');
+
+});
+
+});
+
+
+// frontend routes
+
+Route::get('/',[BlogController::class, 'index']);
+Route::get('/blog/single',[BlogController::class,'singlePage'])->name('single.blog');
 
