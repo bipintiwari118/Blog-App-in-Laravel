@@ -29,7 +29,7 @@
             </div>
             <div class="form">
 
-                <form id="form" action="{{ route('post.store') }}" method="post">
+                <form id="form" action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
                     @if (Session::has('success'))
                         <div class="alert alert-success" role="alert">
                             {{ Session::get('success') }}
@@ -99,9 +99,9 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="title">Title</label> <span class="required">*</span>
-                        <input type="text" class="form-control" id="title" name='title' placeholder="Enter title here">
-                        @error('title')
+                        <label for="file">Image</label> <span class="required">*</span>
+                        <input type="file" class="form-control" id="file" name='file'>
+                        @error('file')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>

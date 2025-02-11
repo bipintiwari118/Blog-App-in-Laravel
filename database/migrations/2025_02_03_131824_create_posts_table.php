@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained();
             $table->string('title');
             $table->longText('description')->nullable();
+            $table->text('file')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

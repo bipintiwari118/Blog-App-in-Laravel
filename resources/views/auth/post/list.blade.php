@@ -36,7 +36,7 @@
                                     <tr>
                                         <td>{{ $post->id }}</td>
                                         <td>{{ Str::limit($post->title, 10) }}</td>
-                                        <td></td>
+                                        <td> <img src="{{ asset('/storage/auth/images/').'/'.$post->file }}" alt="" style="height:200px;width:200px;"></td>
                                         <td>
                                             {{ Str::limit($post->description, 10) }}
 

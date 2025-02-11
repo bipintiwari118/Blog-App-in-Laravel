@@ -29,11 +29,18 @@ class PostController extends Controller
 
         DB::transaction(function () use($request){
 
+            if($request->file('file')){
+                $fileName=time().$request->file->getClientOriginalName();
+                // $filePath=public_path('/storage/auth/images/').$fileName;
+                $request->file->move(public_path('/storage/auth/images/'),$fileName);
+            }
+
             $post = Post::create([
                 'title'=>$request->title,
                 'description'=>$request->description,
                 'category_id'=>$request->category_id,
                 'user_id'=>$request->user_id,
+                'file'=>$fileName,
                 'status'=>$request->status,
             ]);
 
