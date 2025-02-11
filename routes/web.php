@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,39 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('auth.dashboard');
+});
+
+
+// Route For Category//
+
+Route::get('category/create/',[CategoryController::class, 'create'])->name('category.create');
+Route::post('category/store/',[CategoryController::class, 'store'])->name('category.store');
+Route::get('category/list/',[CategoryController::class, 'list'])->name('category.list');
+Route::get('category/delete/{id}',[CategoryController::class, 'delete'])->name('category.delete');
+Route::get('category/edit/{id}',[CategoryController::class, 'edit'])->name('category.edit');
+Route::post('category/update/{id}',[CategoryController::class, 'update'])->name('category.update');
+
+
+///Route for Tag
+
+Route::get('tag/create/',[TagController::class, 'create'])->name('tag.create');
+Route::post('tag/store/',[TagController::class, 'store'])->name('tag.store');
+Route::get('tag/list/',[TagController::class, 'list'])->name('tag.list');
+Route::get('tag/delete/{id}',[TagController::class, 'delete'])->name('tag.delete');
+Route::get('tag/edit/{id}',[TagController::class, 'edit'])->name('tag.edit');
+Route::post('tag/update/{id}',[TagController::class, 'update'])->name('tag.update');
+
+
+
+///Route for post
+
+Route::get('post/create/',[PostController::class, 'create'])->name('post.create');
+Route::post('post/store/',[PostController::class, 'store'])->name('post.store');
+Route::get('post/list/',[PostController::class, 'list'])->name('post.list');
+Route::get('post/edit/{id}',[PostController::class, 'edit'])->name('post.edit');
+Route::get('post/delete/{id}',[PostController::class, 'delete'])->name('post.delete');
+Route::post('post/update/{id}',[PostController::class, 'update'])->name('post.update');
+
