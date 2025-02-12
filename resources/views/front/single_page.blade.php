@@ -28,32 +28,24 @@
                   <div class="row">
       <div class="col-lg-12 mb-5">
           <div class="single-blog-item">
-              <img src="{{ asset('assets/front/images/blog/1.jpg') }}" alt="" class="img-fluid rounded">
+              <img src="{{ asset('/storage/auth/images/') . '/' . $post->file }}" alt="" class="img-fluid rounded">
 
               <div class="blog-item-content bg-white p-5">
                   <div class="blog-item-meta bg-gray py-1 px-2">
-                      <span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>Creativity</span>
+                      <span class="text-muted text-capitalize mr-3"><i class="ti-pencil-alt mr-2"></i>{{ $post->category->name }}</span>
                       <span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>5 Comments</span>
-                      <span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> 28th January</span>
+                      <span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i> {{ $post->created_at->format('M d, Y') }}</span>
                   </div>
 
-                  <h2 class="mt-3 mb-4"><a href="blog-single.html">Improve design with typography?</a></h2>
-                  <p class="lead mb-4">Non illo quas blanditiis repellendus laboriosam minima animi. Consectetur accusantium pariatur repudiandae!</p>
-
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus natus, consectetur? Illum libero vel nihil nisi quae, voluptatem, sapiente necessitatibus distinctio voluptates, iusto qui. Laboriosam autem, nam voluptate in beatae.</p>
-
-                  <h3 class="quote">A brand for a company is like a reputation for a person. You earn reputation by trying to do hard things well.</h3>
-
-                  <p class="lead mb-4 font-weight-normal text-black">The same is true as we experience the emotional sensation of stress from our first instances of social rejection ridicule. We quickly learn to fear and thus automatically.</p>
-
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, rerum beatae repellat tenetur incidunt quisquam libero dolores laudantium. Nesciunt quis itaque quidem, voluptatem autem eos animi laborum iusto expedita sapiente.</p>
-
+                  <h2 class="mt-3 mb-4"><a href="{{ route('single.blog',$post->id) }}">{{ $post->title }}</a></h2>
+                  <p class="lead mb-4">{{ $post->description }}</p>
                   <div class="tag-option mt-5 clearfix">
                       <ul class="float-left list-inline">
                           <li>Tags:</li>
-                          <li class="list-inline-item"><a href="#" rel="tag">Advancher</a></li>
-                          <li class="list-inline-item"><a href="#" rel="tag">Landscape</a></li>
-                          <li class="list-inline-item"><a href="#" rel="tag">Travel</a></li>
+                          <li class="list-inline-item"><a href="#" rel="tag">  @foreach ($post->tags as $tag)
+                            {{ $tag->name }} ,
+                        @endforeach</a></li>
+
                          </ul>
 
                       <ul class="float-right list-inline">
@@ -168,7 +160,7 @@
       <div class="sidebar-widget card border-0 mb-3">
           <img src="{{ asset('assets/front/images/blog/blog-author.jpg') }}" alt="" class="img-fluid">
           <div class="card-body p-4 text-center">
-              <h5 class="mb-0 mt-4">Arther Conal</h5>
+              <h5 class="mb-0 mt-4">{{ Auth::user()->name }}</h5>
               <p>Digital Marketer</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, dolore.</p>
 
@@ -222,15 +214,10 @@
 
       <div class="sidebar-widget bg-white rounded tags p-4 mb-3">
           <h5 class="mb-4">Tags</h5>
+        @foreach ( $tags as $tag)
+            <a href="#">{{ $tag->name }}</a>
+        @endforeach
 
-          <a href="#">Web</a>
-          <a href="#">agency</a>
-          <a href="#">company</a>
-          <a href="#">creative</a>
-          <a href="#">html</a>
-          <a href="#">Marketing</a>
-          <a href="#">Social Media</a>
-          <a href="#">Branding</a>
       </div>
   </div>
               </div>

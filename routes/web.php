@@ -74,6 +74,6 @@ Route::post('post/update/{id}',[PostController::class, 'update'])->name('post.up
 
 // frontend routes
 
-Route::get('/',[BlogController::class, 'index']);
-Route::get('/blog/single',[BlogController::class,'singlePage'])->name('single.blog');
+Route::get('/',[BlogController::class, 'index'])->name('home');
+Route::get('/blog/single/{id}',[BlogController::class,'singlePage'])->name('single.blog');
 
