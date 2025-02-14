@@ -6,6 +6,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ use App\Http\Controllers\BlogController;
 //     return view('front.layouts.app');
 // });
 
+Route::get('/register',[UserController::class,'register'])->name('user.register');
+Route::post('/register',[UserController::class,'storeUser'])->name('user.store');
 
 
 //admin panel routes
@@ -76,4 +79,9 @@ Route::post('post/update/{id}',[PostController::class, 'update'])->name('post.up
 
 Route::get('/',[BlogController::class, 'index'])->name('home');
 Route::get('/blog/single/{id}',[BlogController::class,'singlePage'])->name('single.blog');
+Route::get('/logout',[UserController::class, 'frontLogout'])->name('front.logout');
+
+//comment
+Route::post('/blog/comment/',[CommentController::class,'storeComment'])->name('comment.store');
+
 

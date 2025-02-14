@@ -373,7 +373,7 @@ a:focus {
 }
 
 /*--
-	features-work Start 
+	features-work Start
 --*/
 #features-work {
   padding-top: 50px;
@@ -499,7 +499,8 @@ ul.dropdown-menu li {
 }
 
 .bg-1 {
-  background: url("../images/bg/home-2.jpg") no-repeat 50% 50%;
+    background: var(--bg-image) no-repeat 10% 20%;
+  /* background: url("../images/bg/home-2.jpg") no-repeat 50% 50%; */
   background-size: cover;
 }
 

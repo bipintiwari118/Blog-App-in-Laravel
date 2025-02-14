@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 @section('title', 'My Blog || Home Page')
 @section('content')
-    <section class="page-title bg-1">
+    {{-- <section class="page-title bg-1">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -17,8 +17,12 @@
                 </div>
             </div>
         </div>
-    </section>
-
+    </section> --}}
+    @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+    @endif
     <section class="section blog-wrap bg-gray">
         <div class="container">
             <div class="row">
@@ -39,10 +43,12 @@
                                             class="ti-time mr-1"></i>{{ $post->created_at->format('M d, Y') }}</span>
                                 </div>
 
-                                <h3 class="mt-3 mb-3"><a href="{{ route('single.blog',$post->id) }}">{{ $post->title }}</a></h3>
+                                <h3 class="mt-3 mb-3"><a href="{{ route('single.blog', $post->id) }}">{{ $post->title }}</a>
+                                </h3>
                                 <p class="mb-4">{{ Str::limit($post->description, 120) }}</p>
 
-                                <a href="{{ route('single.blog',$post->id) }}" class="btn btn-small btn-main btn-round-full">Learn
+                                <a href="{{ route('single.blog', $post->id) }}"
+                                    class="btn btn-small btn-main btn-round-full">Learn
                                     More</a>
                             </div>
                         </div>

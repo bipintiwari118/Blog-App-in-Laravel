@@ -45,9 +45,9 @@
                     </div>
                     <div class="col-lg-10 col-md-8 text-center text-lg-right text-md-right">
                         <div class="header-top-info">
-                            <a href="tel:+23-345-67890">Call Us : <span>+23-345-67890</span></a>
+                            <a href="tel:+23-345-67890">Call Us : <span>+977 9813834870</span></a>
                             <a href="mailto:support@gmail.com"><i
-                                    class="fa fa-envelope mr-2"></i><span>support@gmail.com</span></a>
+                                    class="fa fa-envelope mr-2"></i><span>thenepalitimes@gmail.com</span></a>
                         </div>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
         </div>
         <nav class="navbar navbar-expand-lg  py-4" id="navbar">
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    Mega<span>kit.</span>
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    The Nepali <span>Times</span>
                 </a>
 
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
@@ -72,6 +72,13 @@
                         </li>
 
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        @if(Auth::check())
+                        <li class="nav-item"><a class="nav-link " href="{{ route('front.logout') }}">Logout</a></li>
+                        @else
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Register</a></li>
+                        <li class="nav-item"><a class="nav-link " href="{{ route('admin.login') }}">Login</a></li>
+                        @endif
+
                     </ul>
 
                 </div>
@@ -128,10 +135,10 @@
                     <div class="col-lg-3 ml-auto col-sm-6">
                         <div class="widget">
                             <div class="logo mb-4">
-                                <h3>Mega<span>kit.</span></h3>
+                                <h3>The Nepali<span>Times</span></h3>
                             </div>
-                            <h6><a href="tel:+23-345-67890">Support@megakit.com</a></h6>
-                            <a href="mailto:support@gmail.com"><span class="text-color h4">+23-456-6588</span></a>
+                            <h6><a href="tel:+977-9813834870">thenepalitimes@gmail.com</a></h6>
+                            <a href="thenepalitimes@gmail.com"><span class="text-color h4">+977-9813834870</span></a>
                         </div>
                     </div>
                 </div>
@@ -140,14 +147,13 @@
                     <div class="row">
                         <div class="col-lg-4 col-md-12 col-sm-12">
                             <div class="copyright">
-                                &copy; Copyright Reserved to <span class="text-color">Megakit.</span> by <a
-                                    href="https://themefisher.com/" target="_blank">Themefisher</a>
+                                &copy; Copyright Reserved to <span class="text-color">TheNepaliTimes.</span>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-12 col-sm-12">
                             <div class="copyright">
-                                Distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
+                                Distributed by <a href="https://bipintiwari.com.np/" target="_blank">Bipin Tiwari</a>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 col-sm-12 text-left text-lg-left">

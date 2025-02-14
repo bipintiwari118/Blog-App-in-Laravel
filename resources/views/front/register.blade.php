@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Blog || Login</title>
+    <title>My Blog || Register</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 
@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="mb-5">
-                                        <h4 class="text-center"> Login</h4>
+                                        <h4 class="text-center">Register</h4>
                                     </div>
                                 </div>
                             </div>
@@ -27,12 +27,7 @@
                                     {{ Session::get('success') }}
                                 </div>
                             @endif
-                            @if (Session::has('logout'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ Session::get('logout') }}
-                                </div>
-                            @endif
-                            <form action="{{ route('admin.login') }}" method="POST">
+                            <form action="" method="POST">
                                 @csrf
                                 @if (Session::has('error'))
                                     <div class="alert alert-danger" role="alert">
@@ -40,6 +35,17 @@
                                     </div>
                                 @endif
                                 <div class="row gy-3 overflow-hidden">
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" value="{{ old('name') }}"
+                                                class="form-control @error('name') is-invalid @enderror" name="name"
+                                                id="name">
+                                            <label for="name" class="form-label">Name</label>
+                                            @error('name')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-12">
                                         <div class="form-floating mb-3">
                                             <input type="text" value="{{ old('email') }}"
@@ -64,14 +70,14 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button class="btn bsb-btn-xl btn-primary py-3" type="submit">Log in
-                                                now</button>
+                                            <button class="btn bsb-btn-xl btn-primary py-3"
+                                                type="submit">Register</button>
                                         </div>
                                     </div>
                                     <p class="change_link">
-                                        <a href="{{ route('user.register') }}"
-                                            style="text-decoration:none;font-size:18px;color:black">Don't have account?
-                                            <span style="color:rgb(0, 123, 255);"> Register Now.</span></a>
+                                        <a href="{{ route('admin.login') }}"
+                                            style="text-decoration:none;font-size:18px;color:black"> Have you account?
+                                            <span style="color:rgb(0, 123, 255);"> Log Now.</span></a>
                                     </p>
 
                                 </div>
