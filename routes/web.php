@@ -83,5 +83,6 @@ Route::get('/logout',[UserController::class, 'frontLogout'])->name('front.logout
 
 //comment
 Route::post('/blog/comment/',[CommentController::class,'storeComment'])->name('comment.store');
+Route::post('/blog/comment/reply',[CommentController::class,'storeCommentReply'])->name('comment.reply.store');
 
 

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Comment;
+use App\Models\PostTag;
 
 class BlogController extends Controller
 {
@@ -18,7 +20,9 @@ class BlogController extends Controller
 
     public function singlePage($id){
         $post=Post::findOrFail($id);
-        $tags=Tag::all();
-        return view('front.single_page',compact('post','tags'));
+        $comments=Comment::where('post_id',$post->id)->paginate(4);
+        $tags=$post->tags;
+        $latestPosts = Post::latest()->take(3)->get();
+        return view('front.single_page',compact('post','tags','comments','latestPosts'));
     }
 }

@@ -187,6 +187,8 @@
 
     <script src="{{ asset('assets/front/js/script.js') }}"></script>
 
+    @stack('scripts')
+
 </body>
 
 </html>

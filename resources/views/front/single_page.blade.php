@@ -35,7 +35,8 @@
                                     <div class="blog-item-meta bg-gray py-1 px-2">
                                         <span class="text-muted text-capitalize mr-3"><i
                                                 class="ti-pencil-alt mr-2"></i>{{ $post->category->name }}</span>
-                                        <span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>5
+                                        <span class="text-muted text-capitalize mr-3"><i class="ti-comment mr-2"></i>
+                                            {{ $comments->count() }}
                                             Comments</span>
                                         <span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i>
                                             {{ $post->created_at->format('M d, Y') }}</span>
@@ -93,29 +94,65 @@
                             </form>
                         </div>
 
-                        @if ($post->comment->count() > 0)
+                        @if ($comments->count() > 0)
                             <div class="col-lg-12 mb-5">
                                 <div class="comment-area card border-0 p-5">
-                                    <h4 class="mb-4">{{ $post->comment->count() }} Comments</h4>
+                                    <h4 class="mb-4">{{ $comments->count() }} Comments</h4>
                                     <ul class="comment-tree list-unstyled">
-                                        @foreach ($post->comment->sortByDesc('created_at')->take(3) as $comment)
+                                        @foreach ($comments as $comment)
                                             <li class="mb-5">
-                                                <div class="comment-area-box">
+                                                <div class="comment-area-box comment">
                                                     <h5 class="mb-1">{{ $comment->user->name }}</h5>
                                                     <div
                                                         class="comment-meta mt-4 mt-lg-0 mt-md-0 float-lg-right float-md-right">
-                                                        <a href="#"><i class="icofont-reply mr-2 text-muted"></i>Reply
+                                                        <a href="#reply" class="reply">
+                                                            <i class="icofont-reply mr-2 text-muted"></i>Reply
                                                             |</a>
-                                                        <span class="date-comm">Posted {{ $comment->created_at->format('M d, Y') }}</span>
+                                                        <span class="date-comm">Posted
+                                                            {{ $comment->created_at->format('M d, Y') }}</span>
                                                     </div>
 
                                                     <div class="comment-content mt-3">
                                                         <p>{{ $comment->comment }} </p>
                                                     </div>
+                                                    @foreach ($comment->commentReplies as $reply)
+                                                        <div class="comment-area-box comment ml-5">
+                                                            <h6 class="mb-1">{{ $reply->user->name }}</h6>
+                                                            <div
+                                                                class="comment-meta mt-4 mt-lg-0 mt-md-0 float-lg-right float-md-right">
+                                                                <span class="date-comm">Posted
+                                                                    {{ $reply->created_at->format('M d, Y') }}</span>
+                                                            </div>
+                                                            <div class="comment-content mt-2">
+                                                                <p>{{ $reply->comment }} </p>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+
+                                                    <div class="comment_reply">
+                                                        <form class="contact-form bg-white rounded" id="comment-form"
+                                                            action="{{ route('comment.reply.store') }}" method="POST">
+                                                            @csrf
+                                                            <textarea class="form-control mb-3" name="comment" id="comment" cols="30" rows="2"
+                                                                placeholder="Comment reply"></textarea>
+                                                            <input type="hidden" name="comment_id"
+                                                                value="{{ $comment->id }}">
+                                                            <div class="text-right">
+                                                                <input class="btn btn-primary btn-round-full mb-5 "
+                                                                    type="submit" name="submit-contact"
+                                                                    id="submit_contact" value="Reply">
+                                                            </div>
+
+                                                        </form>
+                                                    </div>
+
                                                 </div>
                                             </li>
                                         @endforeach
                                     </ul>
+                                    <div class="d-flex justify-content-center">
+                                        {{ $comments->links('pagination::bootstrap-5') }}
+                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -159,34 +196,18 @@
 
                         <div class="sidebar-widget latest-post card border-0 p-4 mb-3">
                             <h5>Latest Posts</h5>
-
-                            <div class="media border-bottom py-3">
-                                <a href="#"><img class="mr-4"
-                                        src="{{ asset('assets/front/images/blog/bt-3.jpg') }}" alt=""></a>
-                                <div class="media-body">
-                                    <h6 class="my-2"><a href="#">Thoughtful living in los Angeles</a></h6>
-                                    <span class="text-sm text-muted">03 Mar 2018</span>
+                            @foreach ($latestPosts as $post)
+                                <div class="media border-bottom py-3" style="display: flex; flex-direction:column;">
+                                    <a href="#"><img src="{{ asset('/storage/auth/images/') . '/' . $post->file }}"
+                                            alt="" style="width:60%;height:60%;"></a>
+                                    <div class="media-body">
+                                        <h6 class="my-2"><a
+                                                href="{{ route('single.blog', $post->id) }}">{{ $post->title }}</a></h6>
+                                        <span class="text-sm text-muted">{{ $post->created_at->format('M d, Y') }}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
 
-                            <div class="media border-bottom py-3">
-                                <a href="#"><img class="mr-4"
-                                        src="{{ asset('assets/front/images/blog/bt-2.jpg') }}" alt=""></a>
-                                <div class="media-body">
-                                    <h6 class="my-2"><a href="#">Vivamus molestie gravida turpis.</a></h6>
-                                    <span class="text-sm text-muted">03 Mar 2018</span>
-                                </div>
-                            </div>
-
-                            <div class="media py-3">
-                                <a href="#"><img class="mr-4"
-                                        src="{{ asset('assets/front/images/blog/bt-1.jpg') }}" alt=""></a>
-                                <div class="media-body">
-                                    <h6 class="my-2"><a href="#">Fusce lobortis lorem at ipsum semper sagittis</a>
-                                    </h6>
-                                    <span class="text-sm text-muted">03 Mar 2018</span>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="sidebar-widget bg-white rounded tags p-4 mb-3">
@@ -202,3 +223,15 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $('.comment_reply').hide();
+        $(document).ready(function() {
+            $('.reply').click(function() {
+                $(this).closest('li').find('.comment_reply').toggle();
+            })
+
+        });
+    </script>
+@endpush
